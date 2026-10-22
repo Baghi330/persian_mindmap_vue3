@@ -170,7 +170,8 @@ export default {
     optional: 'Optional'
   },
   nodeNote: {
-    title: 'Note'
+    title: 'Note',
+    placeholder: 'Write your note here...'
   },
   nodeTag: {
     title: 'Tag',

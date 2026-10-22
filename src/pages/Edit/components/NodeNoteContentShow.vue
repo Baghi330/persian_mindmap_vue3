@@ -8,12 +8,12 @@
       visibility: show ? 'visible' : 'hidden'
     }"
     @click.stop
-  ></div>
+  >
+    {{ content }}
+  </div>
 </template>
 
 <script>
-import Viewer from '@toast-ui/editor/dist/toastui-editor-viewer'
-import '@toast-ui/editor/dist/toastui-editor-viewer.css'
 import bus from '@/utils/bus.js'
 /**
  * @Author: 黄原寅
@@ -23,7 +23,9 @@ export default {
   name: 'NodeNoteContentShow',
   data() {
     return {
-      editor: null,
+      // ویرایشگر متن غنی فعلاً کامنت شده است، در صورت نیاز دوباره فعال می‌شود
+      // editor: null,
+      content: '',
       show: false,
       left: 0,
       top: 0,
@@ -46,9 +48,6 @@ export default {
     bus.off('scale', this.onScale)
     bus.off('svg_mousedown', this.hideNoteContent)
   },
-  mounted() {
-    this.initEditor()
-  },
   methods: {
     /**
      * @Author: 黄原寅
@@ -56,8 +55,7 @@ export default {
      */
     onShowNoteContent([content, left, top, node]) {
       this.node = node
-      // mitt只支持传入一个参数
-      this.editor.setMarkdown(content)
+      this.content = content || ''
       this.updateNoteContentPosition(left, top)
       this.show = true
     },
@@ -78,17 +76,6 @@ export default {
      */
     hideNoteContent() {
       this.show = false
-    },
-    /**
-     * @Author: 黄原寅
-     * @Desc: 初始化编辑器
-     */
-    initEditor() {
-      if (!this.editor) {
-        this.editor = new Viewer({
-          el: this.$refs.noteContentViewer
-        })
-      }
     }
   }
 }
@@ -101,7 +88,13 @@ export default {
   padding: 10px;
   border-radius: 5px;
   max-height: 300px;
+  max-width: 320px;
   overflow-y: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1.7;
+  font-size: 13px;
+  color: #303133;
   &::-webkit-scrollbar {
     width: 7px;
     height: 7px;

@@ -170,7 +170,8 @@ export default {
     optional: '可选'
   },
   nodeNote: {
-    title: '备注'
+    title: '备注',
+    placeholder: '在此输入备注内容...'
   },
   nodeTag: {
     title: '标签',

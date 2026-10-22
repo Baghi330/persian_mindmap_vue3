@@ -170,7 +170,8 @@ export default {
     optional: 'اختیاری'
   },
   nodeNote: {
-    title: 'یادداشت'
+    title: 'یادداشت',
+    placeholder: 'یادداشت خود را اینجا بنویسید...'
   },
   nodeTag: {
     title: 'برچسب',
