@@ -1,4 +1,5 @@
 import exampleData from 'simple-mind-map/example/exampleData'
+import exampleDataFa from '@/example/exampleDataFa'
 import { simpleDeepClone } from 'simple-mind-map/src/utils/index'
 import Vue from 'vue'
 import bus from '@/utils/bus.js'
@@ -6,6 +7,17 @@ import bus from '@/utils/bus.js'
 const SIMPLE_MIND_MAP_DATA = 'SIMPLE_MIND_MAP_DATA'
 const SIMPLE_MIND_MAP_LANG = 'SIMPLE_MIND_MAP_LANG'
 const SIMPLE_MIND_MAP_LOCAL_CONFIG = 'SIMPLE_MIND_MAP_LOCAL_CONFIG'
+
+// زبان پیش‌فرض برنامه
+export const DEFAULT_LANG = 'fa'
+
+/**
+ * @Author: 黄原寅
+ * @Desc: 获取默认的示例数据，根据当前语言返回对应语言的示例
+ */
+export const getDefaultExampleData = () => {
+  return getLang() === 'fa' ? exampleDataFa : exampleData
+}
 
 /**
  * @Author: 黄原寅
@@ -30,12 +42,12 @@ const copyMindMapTreeData = (tree, root) => {
 export const getData = () => {
   let store = localStorage.getItem(SIMPLE_MIND_MAP_DATA)
   if (store === null) {
-    return simpleDeepClone(exampleData)
+    return simpleDeepClone(getDefaultExampleData())
   } else {
     try {
       return JSON.parse(store)
     } catch (error) {
-      return simpleDeepClone(exampleData)
+      return simpleDeepClone(getDefaultExampleData())
     }
   }
 }
@@ -92,8 +104,8 @@ export const getLang = () => {
   if (lang) {
     return lang
   }
-  storeLang('zh')
-  return 'zh'
+  storeLang(DEFAULT_LANG)
+  return DEFAULT_LANG
 }
 
 /**

@@ -2,6 +2,7 @@
 export const layoutImgMap = {
   logicalStructure: require('../assets/img/structures/logicalStructure.png'),
   mindMap: require('../assets/img/structures/mindMap.png'),
+  mindMapRtl: require('../assets/img/structures/mindMapRtl.png'),
   organizationStructure: require('../assets/img/structures/organizationStructure.png'),
   catalogOrganization: require('../assets/img/structures/catalogOrganization.png'),
   timeline: require('../assets/img/structures/timeline.png'),

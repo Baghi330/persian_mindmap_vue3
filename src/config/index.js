@@ -6,7 +6,6 @@ import {
   borderRadiusList,
   lineWidthList,
   store,
-  langList,
   fontFamilyList as fontFamilyListZh,
   borderDasharrayList as borderDasharrayListZh,
   lineStyleList as lineStyleListZh,
@@ -36,17 +35,38 @@ import {
   downTypeList as downTypeListEn
 } from './en'
 
+import {
+  fontFamilyList as fontFamilyListFa,
+  borderDasharrayList as borderDasharrayListFa,
+  lineStyleList as lineStyleListFa,
+  rootLineKeepSameInCurveList as rootLineKeepSameInCurveListFa,
+  backgroundRepeatList as backgroundRepeatListFa,
+  backgroundPositionList as backgroundPositionListFa,
+  shortcutKeyList as shortcutKeyListFa,
+  shapeList as shapeListFa,
+  sidebarTriggerList as sidebarTriggerListFa,
+  backgroundSizeList as backgroundSizeListFa,
+  downTypeList as downTypeListFa
+} from './fa'
+
+import { structureList as structureListZh } from './structureZh'
+import { structureList as structureListEn } from './structureEn'
+import { structureList as structureListFa } from './structureFa'
+
 const fontFamilyList = {
   zh: fontFamilyListZh,
-  en: fontFamilyListEn
+  en: fontFamilyListEn,
+  fa: fontFamilyListFa
 }
 const borderDasharrayList = {
   zh: borderDasharrayListZh,
-  en: borderDasharrayListEn
+  en: borderDasharrayListEn,
+  fa: borderDasharrayListFa
 }
 const lineStyleList = {
   zh: lineStyleListZh,
-  en: lineStyleListEn
+  en: lineStyleListEn,
+  fa: lineStyleListFa
 }
 const lineStyleMap = {
   zh: lineStyleMapZh,
@@ -54,27 +74,33 @@ const lineStyleMap = {
 }
 const rootLineKeepSameInCurveList = {
   zh: rootLineKeepSameInCurveListZh,
-  en: rootLineKeepSameInCurveListEn
+  en: rootLineKeepSameInCurveListEn,
+  fa: rootLineKeepSameInCurveListFa
 }
 const backgroundRepeatList = {
   zh: backgroundRepeatListZh,
-  en: backgroundRepeatListEn
+  en: backgroundRepeatListEn,
+  fa: backgroundRepeatListFa
 }
 const backgroundPositionList = {
   zh: backgroundPositionListZh,
-  en: backgroundPositionListEn
+  en: backgroundPositionListEn,
+  fa: backgroundPositionListFa
 }
 const backgroundSizeList = {
   zh: backgroundSizeListZh,
-  en: backgroundSizeListEn
+  en: backgroundSizeListEn,
+  fa: backgroundSizeListFa
 }
 const shortcutKeyList = {
   zh: shortcutKeyListZh,
-  en: shortcutKeyListEn
+  en: shortcutKeyListEn,
+  fa: shortcutKeyListFa
 }
 const shapeList = {
   zh: shapeListZh,
-  en: shapeListEn
+  en: shapeListEn,
+  fa: shapeListFa
 }
 
 const shapeListMap = {
@@ -84,13 +110,38 @@ const shapeListMap = {
 
 const sidebarTriggerList = {
   zh: sidebarTriggerListZh,
-  en: sidebarTriggerListEn
+  en: sidebarTriggerListEn,
+  fa: sidebarTriggerListFa
 }
 
 const downTypeList = {
   zh: downTypeListZh,
-  en: downTypeListEn
+  en: downTypeListEn,
+  fa: downTypeListFa
 }
+
+// 布局结构列表
+const structureList = {
+  zh: structureListZh,
+  en: structureListEn,
+  fa: structureListFa
+}
+
+// 多语言列表
+const langList = [
+  {
+    value: 'fa',
+    name: 'فارسی'
+  },
+  {
+    value: 'zh',
+    name: '简体中文'
+  },
+  {
+    value: 'en',
+    name: 'English'
+  }
+]
 
 export {
   fontSizeList,
@@ -113,5 +164,6 @@ export {
   shapeList,
   shapeListMap,
   sidebarTriggerList,
-  downTypeList
+  downTypeList,
+  structureList
 }

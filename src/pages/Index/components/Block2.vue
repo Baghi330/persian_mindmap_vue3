@@ -1,25 +1,23 @@
 <template>
   <div class="block2Container">
     <div class="blockContent">
-      <div class="blockTitle">为什么选择Simple mind map？</div>
+      <div class="blockTitle">{{ $t('index.block2.title') }}</div>
       <div class="dataList">
         <div class="dataItem" v-for="(item, index) in dataList" :key="index">
           <div class="iconBox">
             <span class="icon iconfont" :class="[item.icon]"></span>
           </div>
-          <div class="dataValue">{{ item.value }}</div>
+          <div class="dataValue">{{ $t(item.valueKey) }}</div>
         </div>
       </div>
-      <div class="desc">
-        如果你是开发者：Simple mind map提供了一个功能完善的 js 思维导图库，不依赖任何框架，你可以使用它来快速完成Web思维导图产品的开发。
-      </div>
-      <div class="desc">如果你是使用者：Simple mind map提供了一个完整的思维导图软件，支持在线和客户端两种使用方式，所有功能完全免费。</div>
+      <div class="desc">{{ $t('index.block2.desc1') }}</div>
+      <div class="desc">{{ $t('index.block2.desc2') }}</div>
       <div class="functionList">
         <div class="functionItem" v-for="(item, index) in functionList" :key="index">
           <div class="icon iconfont" :class="[item.icon]"></div>
           <div class="info">
-            <div class="name">{{ item.name }}</div>
-            <div class="value">{{ item.value }}</div>
+            <div class="name">{{ $t(item.nameKey) }}</div>
+            <div class="value">{{ $t(item.valueKey) }}</div>
           </div>
         </div>
       </div>
@@ -31,111 +29,111 @@
 const dataList = [
   {
     icon: 'iconstar',
-    value: 'Github star数量600+'
+    valueKey: 'index.block2.stats.star'
   },
   {
     icon: 'iconfork',
-    value: 'Github fork数量150+'
+    valueKey: 'index.block2.stats.fork'
   },
   {
     icon: 'iconxiazai',
-    value: 'npm总下载次数10000+'
+    valueKey: 'index.block2.stats.download'
   },
   {
     icon: 'iconteamwork',
-    value: '代码贡献者8+'
+    valueKey: 'index.block2.stats.contributor'
   }
 ]
 const functionList = [
   {
     icon: 'iconjingzi',
-    name: '主题',
-    value: '内置多种主题，允许高度自定义样式，支持注册新主题。'
+    nameKey: 'index.block2.features.theme.name',
+    valueKey: 'index.block2.features.theme.value'
   },
   {
     icon: 'iconjiegou',
-    name: '结构',
-    value: '支持常见的逻辑结构图、思维导图、组织结构图、目录组织图、时间轴、鱼骨图结构。'
+    nameKey: 'index.block2.features.structure.name',
+    valueKey: 'index.block2.features.structure.value'
   },
   {
     icon: 'iconjianpan',
-    name: '快捷键',
-    value: '常用操作支持快捷键，方便使用。'
+    nameKey: 'index.block2.features.shortcutKey.name',
+    valueKey: 'index.block2.features.shortcutKey.value'
   },
   {
     icon: 'iconzitixiahuaxian',
-    name: '富文本',
-    value: '节点支持普通文本和富文本两种类型，通过富文本可以创建样式丰富的节点文本内容。'
+    nameKey: 'index.block2.features.richText.name',
+    valueKey: 'index.block2.features.richText.value'
   },
   {
     icon: 'iconimage',
-    name: '图片',
-    value: '选中任一节点，选择上传图片，让内容达到图文并茂。'
+    nameKey: 'index.block2.features.image.name',
+    valueKey: 'index.block2.features.image.value'
   },
   {
     icon: 'icongaikuozonglan',
-    name: '概要',
-    value: '补充表述几个节点之间的关系。'
+    nameKey: 'index.block2.features.summary.name',
+    valueKey: 'index.block2.features.summary.value'
   },
   {
     icon: 'iconxiaolian',
-    name: '图标',
-    value: '通过添加图标来让节点内容更丰富。'
+    nameKey: 'index.block2.features.icon.name',
+    valueKey: 'index.block2.features.icon.value'
   },
   {
     icon: 'iconchaolianjie',
-    name: '超链接',
-    value: '节点可插入超链接，鼠标点击即可实现跳转。'
+    nameKey: 'index.block2.features.hyperlink.name',
+    valueKey: 'index.block2.features.hyperlink.value'
   },
   {
     icon: 'iconflow-Mark',
-    name: '备注',
-    value: '详细的内容可以放在备注中，节点内显得更简单明了。'
+    nameKey: 'index.block2.features.note.name',
+    valueKey: 'index.block2.features.note.value'
   },
   {
     icon: 'iconbiaoqian',
-    name: '标签',
-    value: '如果添加带颜色的标签，来突出要表达的重点。'
+    nameKey: 'index.block2.features.tag.name',
+    valueKey: 'index.block2.features.tag.value'
   },
   {
     icon: 'iconlianjiexian',
-    name: '关联线',
-    value: '通过添加关联线来表明节点之间的关联关系。'
+    nameKey: 'index.block2.features.associativeLine.name',
+    valueKey: 'index.block2.features.associativeLine.value'
   },
   {
     icon: 'iconmouseL',
-    name: '拖动',
-    value: '画布和节点都可以进行拖动。'
+    nameKey: 'index.block2.features.drag.name',
+    valueKey: 'index.block2.features.drag.value'
   },
   {
     icon: 'icondaohang',
-    name: '导航器',
-    value: '通过导航器可以方便知道当前画布处于思维导图的哪个部分。'
+    nameKey: 'index.block2.features.navigator.name',
+    valueKey: 'index.block2.features.navigator.value'
   },
   {
     icon: 'icondaochu',
-    name: '导入导出',
-    value: '支持多种文件格式的导入和导出。'
+    nameKey: 'index.block2.features.importExport.name',
+    valueKey: 'index.block2.features.importExport.value'
   },
   {
     icon: 'iconshuiyin',
-    name: '水印',
-    value: '内置支持水印功能，防止隐私泄露。'
+    nameKey: 'index.block2.features.watermark.name',
+    valueKey: 'index.block2.features.watermark.value'
   },
   {
     icon: 'iconwithdraw',
-    name: '前进后退',
-    value: '不小心误操作删除或修改内容支持一键撤回或恢复。'
+    nameKey: 'index.block2.features.backForward.name',
+    valueKey: 'index.block2.features.backForward.value'
   },
   {
     icon: 'iconfuhao-dagangshu',
-    name: '大纲',
-    value: '根据大纲编辑思维导图，让内容更详细也不容易出错。'
+    nameKey: 'index.block2.features.outline.name',
+    valueKey: 'index.block2.features.outline.value'
   },
   {
     icon: 'iconshezhi',
-    name: '丰富的设置',
-    value: '提供了丰富的功能设置，可以选择合适你的操作行为。'
+    nameKey: 'index.block2.features.richSettings.name',
+    valueKey: 'index.block2.features.richSettings.value'
   }
 ]
 </script>
@@ -159,14 +157,14 @@ const functionList = [
       .dataItem {
         box-shadow: 0 5px 30px -10px rgba(0, 0, 0, 0.1);
         border-radius: 20px;
-        margin-right: 30px;
+        margin-inline-end: 30px;
         padding: 20px;
         display: flex;
         flex-direction: column;
         align-items: center;
 
         &:last-of-type {
-          margin-right: 0;
+          margin-inline-end: 0;
         }
 
         .iconBox {
@@ -223,7 +221,7 @@ const functionList = [
           justify-content: center;
           align-items: center;
           font-size: 50px;
-          margin-right: 24px;
+          margin-inline-end: 24px;
           color: #1ea59a;
         }
 

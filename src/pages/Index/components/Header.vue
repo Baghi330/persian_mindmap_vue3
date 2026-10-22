@@ -13,9 +13,9 @@
             active: activeTab === 'home'
           }"
         >
-          首页
+          {{ $t('index.header.home') }}
         </div>
-        <div class="navItem" @click="useOnline">在线使用</div>
+        <div class="navItem" @click="useOnline">{{ $t('index.header.online') }}</div>
         <div
           class="navItem"
           @click="jumpClient"
@@ -23,12 +23,17 @@
             active: activeTab === 'client'
           }"
         >
-          客户端
+          {{ $t('index.header.client') }}
         </div>
-        <div class="navItem" @click="jumpHelp">使用文档</div>
-        <div class="navItem" @click="jumpDoc">开发文档</div>
+        <div class="navItem" @click="jumpHelp">{{ $t('index.header.help') }}</div>
+        <div class="navItem" @click="jumpDoc">{{ $t('index.header.doc') }}</div>
         <div class="navItem">
           <a href="https://github.com/wanglin2/mind-map" target="_blank">Github</a>
+        </div>
+        <div class="navItem langItem">
+          <el-select v-model="lang" size="small" class="langSelect" @change="onLangChange">
+            <el-option v-for="item in langList" :key="item.value" :label="item.name" :value="item.value" />
+          </el-select>
         </div>
       </div>
     </div>
@@ -38,11 +43,22 @@
 <script setup>
 import { onMounted, onUnmounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
+import { langList } from '@/config'
+import { storeLang, getLang } from '@/api'
 
 const router = useRouter()
+const { locale } = useI18n()
 const active = ref(false)
 const activeTab = ref('home')
 const clientEl = ref(null)
+const lang = ref(getLang())
+
+const onLangChange = selectedLang => {
+  lang.value = selectedLang
+  locale.value = selectedLang
+  storeLang(selectedLang)
+}
 
 onMounted(() => {
   window.addEventListener('scroll', onScroll)
@@ -87,7 +103,7 @@ const jumpClient = () => {
 <style lang="less" scoped>
 .indexHeaderContainer {
   position: fixed;
-  left: 0;
+  inset-inline-start: 0;
   top: 0;
   width: 100%;
   height: 76px;
@@ -117,7 +133,7 @@ const jumpClient = () => {
         height: 22px;
         background-image: url('../../../assets/img/logo2.png');
         background-size: cover;
-        margin-right: 5px;
+        margin-inline-end: 5px;
       }
 
       .title {
@@ -134,11 +150,11 @@ const jumpClient = () => {
         color: #828f99;
         font-size: 15px;
         transition: all 0.5s;
-        margin-right: 40px;
+        margin-inline-end: 40px;
         cursor: pointer;
 
         &:last-of-type {
-          margin-right: 0;
+          margin-inline-end: 0;
         }
 
         &.active {
@@ -156,6 +172,12 @@ const jumpClient = () => {
           &:hover {
             color: #1ea59a;
           }
+        }
+      }
+
+      .langItem {
+        .langSelect {
+          width: 110px;
         }
       }
     }

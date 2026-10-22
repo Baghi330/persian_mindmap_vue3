@@ -69,7 +69,7 @@ export default {
     }
   }
   div:first-child {
-    margin-right: 12px;
+    margin-inline-end: 12px;
   }
   .btn {
     cursor: pointer;

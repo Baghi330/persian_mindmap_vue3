@@ -19,19 +19,28 @@
 </template>
 
 <script setup>
-import { ref, onMounted, nextTick, onBeforeMount } from 'vue'
+import { ref, onMounted, nextTick, onBeforeMount, computed, watch } from 'vue'
 import Editor from '@toast-ui/editor'
 import '@toast-ui/editor/dist/toastui-editor.css' // Editor's Style
+import { useI18n } from 'vue-i18n'
 import bus from '@/utils/bus.js'
+import { editorLangList } from '@/config/editorLang'
 /**
  * @Author: 黄原寅
  * @Desc: 节点备注内容设置
  */
+const { locale } = useI18n()
 const dialogVisible = ref(false)
 const note = ref('')
 const activeNodes = ref([])
 const editor = ref(null)
 const noteEditor = ref(null)
+
+// زبان ویرایشگر متن غنی بر اساس زبان برنامه تعیین می‌شود
+const editorLanguage = computed(() => {
+  const lang = locale.value
+  return editorLangList[lang] ? lang : 'en-US'
+})
 
 onMounted(() => {
   bus.on('node_active', handleNodeActive)
@@ -63,19 +72,48 @@ const handleShowNodeNote = () => {
 
 /**
  * @Author: 黄原寅
+ * @Desc: ساخت ویرایشگر با زبان فعلی برنامه
+ */
+const createEditor = el => {
+  // ثبت زبان‌های پشتیبانی‌شده در ویرایشگر
+  Object.keys(editorLangList).forEach(lang => {
+    Editor.setLanguage(lang, editorLangList[lang])
+  })
+  editor.value = new Editor({
+    el,
+    height: '500px',
+    initialEditType: 'markdown',
+    previewStyle: 'vertical',
+    language: editorLanguage.value
+  })
+}
+
+/**
+ * @Author: 黄原寅
  * @Desc: 初始化编辑器
  */
 const initEditor = () => {
   if (!editor.value) {
-    editor.value = new Editor({
-      el: noteEditor.value,
-      height: '500px',
-      initialEditType: 'markdown',
-      previewStyle: 'vertical'
-    })
+    createEditor(noteEditor.value)
   }
   editor.value.setMarkdown(note.value)
 }
+
+// با تغییر زبان برنامه، ویرایشگر با زبان جدید دوباره ساخته می‌شود
+watch(editorLanguage, () => {
+  if (!editor.value || !noteEditor.value) {
+    return
+  }
+  const currentMarkdown = editor.value.getMarkdown()
+  editor.value.destroy()
+  editor.value = null
+  nextTick(() => {
+    // محتوای قبلی پاک و ویرایشگر جدید روی dom تمیز ساخته می‌شود
+    noteEditor.value.innerHTML = ''
+    createEditor(noteEditor.value)
+    editor.value.setMarkdown(currentMarkdown)
+  })
+})
 
 /**
  * @Author: 黄原寅

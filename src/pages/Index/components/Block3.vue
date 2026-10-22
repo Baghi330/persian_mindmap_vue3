@@ -3,17 +3,19 @@
     <div class="blockContent">
       <div class="picBox"></div>
       <div class="infoBox">
-        <div class="infoTitle">客户端</div>
-        <div class="info">支持Windows、Mac、Linux平台。</div>
-        <div class="info">
-          在线版数据默认保存在浏览器缓存里，同时也可以操作电脑本地文件，但是在线版受限于网络环境，访问可能比较慢，多个文件切换也不够方便，所以提供客户端版本，功能简单但不简陋。
-        </div>
+        <div class="infoTitle">{{ $t('index.block3.title') }}</div>
+        <div class="info">{{ $t('index.block3.info') }}</div>
+        <div class="info">{{ $t('index.block3.desc') }}</div>
         <div class="btnList">
           <div class="btn">
-            <a href="https://pan.baidu.com/s/1huasEbKsGNH2Af68dvWiOg?pwd=3bp3" target="_blank">百度网盘下载</a>
+            <a href="https://pan.baidu.com/s/1huasEbKsGNH2Af68dvWiOg?pwd=3bp3" target="_blank">{{
+              $t('index.block3.baiduDownload')
+            }}</a>
           </div>
           <div class="btn btn2">
-            <a href="https://github.com/wanglin2/mind-map/releases" target="_blank">Github下载</a>
+            <a href="https://github.com/wanglin2/mind-map/releases" target="_blank">{{
+              $t('index.block3.githubDownload')
+            }}</a>
           </div>
         </div>
       </div>
@@ -74,7 +76,7 @@ export default {
           border-color: #1ea59a;
           border-radius: 5px;
           transition: all 0.5s;
-          margin-right: 10px;
+          margin-inline-end: 10px;
           margin-top: 20px;
 
           &:hover {

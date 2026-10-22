@@ -72,6 +72,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+/* پنل کناری در همه زبان‌ها از سمت راست صفحه باز می‌شود */
 .sidebarContainer {
   position: fixed;
   right: -300px;

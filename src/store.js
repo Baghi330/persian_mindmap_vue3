@@ -1,6 +1,5 @@
 import { createStore } from 'vuex'
-import exampleData from 'simple-mind-map/example/exampleData'
-import { storeLocalConfig } from '@/api'
+import { storeLocalConfig, getDefaultExampleData } from '@/api'
 
 const store = createStore({
   state: {
@@ -77,16 +76,9 @@ const store = createStore({
      */
     getUserMindMapData(ctx) {
       try {
-        let { data } = {
-          data: {
-            data: {
-              mindMapData: exampleData
-            }
-          }
-        }
-        ctx.commit('setMindMapData', data.data)
+        ctx.commit('setMindMapData', getDefaultExampleData())
       } catch (error) {
-        console.log(error)
+        console.error(error)
       }
     }
   }

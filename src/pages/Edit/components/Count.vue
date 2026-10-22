@@ -79,7 +79,7 @@ export default {
 .countContainer {
   padding: 0 12px;
   position: fixed;
-  left: 20px;
+  right: 20px;
   bottom: 20px;
   background: hsla(0, 0%, 100%, 0.8);
   border-radius: 2px;
@@ -97,14 +97,14 @@ export default {
 
   .item {
     color: #555;
-    margin-right: 15px;
+    margin-inline-end: 15px;
 
     &:last-of-type {
-      margin-right: 0;
+      margin-inline-end: 0;
     }
 
     .name {
-      margin-right: 5px;
+      margin-inline-end: 5px;
     }
   }
 }

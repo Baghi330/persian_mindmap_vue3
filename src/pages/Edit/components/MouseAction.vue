@@ -61,9 +61,9 @@ export default {
   }
 
   .item {
-    margin-right: 12px;
+    margin-inline-end: 12px;
     &:last-of-type {
-      margin-right: 0;
+      margin-inline-end: 0;
     }
   }
   .btn {

@@ -159,7 +159,7 @@ export default {
       }
       .overview {
         padding: 10px 0;
-        border-right: none;
+        border-inline-end: none;
       }
       .text {
         cursor: pointer;
@@ -169,9 +169,9 @@ export default {
         text-overflow: ellipsis;
         height: 100%;
         position: absolute;
-        right: 0;
+        inset-inline-end: 0;
         top: 0;
-        border-left: 1px solid #dcdfe6;
+        border-inline-start: 1px solid #dcdfe6;
         background-color: #fafafa;
       }
     }

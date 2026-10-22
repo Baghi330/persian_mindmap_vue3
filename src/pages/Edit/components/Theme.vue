@@ -2,7 +2,7 @@
   <Sidebar ref="sidebar" :title="$t('theme.title')">
     <div class="themeList" :class="{ isDark: isDark }">
       <el-tabs v-model="activeName">
-        <el-tab-pane v-for="group in groupList" :key="group.name" :label="group.name" :name="group.name"></el-tab-pane>
+        <el-tab-pane v-for="group in groupList" :key="group.key" :label="group.name" :name="group.key"></el-tab-pane>
       </el-tabs>
       <div
         class="themeItem"
@@ -26,6 +26,7 @@
  * @Desc: 主题
  */
 import { ref, defineProps, onMounted, computed, watch, onBeforeMount } from 'vue'
+import { useI18n } from 'vue-i18n'
 import Sidebar from './Sidebar'
 import { themeList } from 'simple-mind-map/src/constants/constant'
 import { storeConfig } from '@/api'
@@ -34,6 +35,8 @@ import { useStore } from 'vuex'
 import { themeMap } from '@/config/constant.js'
 import customThemeList from '@/customThemes'
 import { ElMessageBox } from 'element-plus'
+
+const { t } = useI18n()
 
 const props = defineProps({
   mindMap: {
@@ -48,8 +51,32 @@ const sidebar = ref(null)
 const theme = ref('')
 const themeAllList = ref([...themeList, ...customThemeList].reverse())
 // const themeAllList = ref([...themeList, ...customThemeList])
-const activeName = ref('')
-const groupList = ref([])
+// تب فعال با کلید ثابت نگه‌داری می‌شود تا با تغییر زبان نام تب‌ها عوض نشود
+const activeName = ref('classics')
+const classicsThemeList = ref([])
+const baiduThemeList = ref([])
+// گروه بندی تم ها، با تغییر زبان دوباره ساخته می شود
+const groupList = computed(() => {
+  return [
+    {
+      key: 'classics',
+      name: t('theme.classics'),
+      list: classicsThemeList.value
+    },
+    {
+      key: 'dark',
+      name: t('theme.dark'),
+      list: themeAllList.value.filter(item => {
+        return item.dark
+      })
+    },
+    {
+      key: 'simple',
+      name: t('theme.simple'),
+      list: baiduThemeList.value
+    }
+  ]
+})
 
 watch(
   () => activeSidebar.value,
@@ -65,9 +92,8 @@ watch(
 )
 
 const currentList = computed(() => {
-  if (groupList.value.length > 0) {
-    return groupList.value.find(item => item.name === activeName.value).list
-  }
+  const group = groupList.value.find(item => item.key === activeName.value)
+  return group ? group.list : []
 })
 
 onMounted(async () => {
@@ -112,23 +138,8 @@ const initGroup = () => {
       classicsList.push(item)
     }
   })
-  groupList.value = [
-    {
-      name: '经典',
-      list: classicsList
-    },
-    {
-      name: '深色',
-      list: themeAllList.value.filter(item => {
-        return item.dark
-      })
-    },
-    {
-      name: '朴素',
-      list: baiduList
-    }
-  ]
-  activeName.value = groupList.value[0].name
+  classicsThemeList.value = classicsList
+  baiduThemeList.value = baiduList
 }
 
 /**
@@ -142,9 +153,9 @@ const useTheme = item => {
   const customThemeConfig = props.mindMap.getCustomThemeConfig()
   const hasCustomThemeConfig = Object.keys(customThemeConfig).length > 0
   if (hasCustomThemeConfig) {
-    ElMessageBox.confirm('你当前自定义过基础样式，是否覆盖？', '提示', {
-      confirmButtonText: '覆盖',
-      cancelButtonText: '保留',
+    ElMessageBox.confirm(t('theme.coverTip'), t('theme.tip'), {
+      confirmButtonText: t('theme.cover'),
+      cancelButtonText: t('theme.reserve'),
       type: 'warning'
     })
       .then(() => {

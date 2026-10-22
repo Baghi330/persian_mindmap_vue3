@@ -5,14 +5,14 @@
         <div class="blockTitle">Simple mind map</div>
         <Split></Split>
         <div class="infoList">
-          <p class="infoRow">是一个思维导图库</p>
-          <p class="infoRow">同时也是一个思维导图软件</p>
-          <p class="infoRow">开源、免费、强大...</p>
+          <p class="infoRow">{{ $t('index.block1.row1') }}</p>
+          <p class="infoRow">{{ $t('index.block1.row2') }}</p>
+          <p class="infoRow">{{ $t('index.block1.row3') }}</p>
         </div>
-        <div class="desc">无论你是开发者，还是使用者，只要喜欢思维导图，都能在这个项目里找到你需要的。</div>
+        <div class="desc">{{ $t('index.block1.desc') }}</div>
         <div class="btnBox">
-          <div class="btn" @click="useOnline">在线使用</div>
-          <div class="btn btn2" @click="jumpDoc">开发文档</div>
+          <div class="btn" @click="useOnline">{{ $t('index.block1.useOnline') }}</div>
+          <div class="btn btn2" @click="jumpDoc">{{ $t('index.block1.doc') }}</div>
         </div>
       </div>
       <div class="picBox">
@@ -111,7 +111,7 @@ const jumpDoc = () => {
           font-size: 15px;
           border-radius: 5px;
           transition: all 0.5s;
-          margin-right: 10px;
+          margin-inline-end: 10px;
 
           &:hover {
             transform: translateY(-4px);
@@ -139,7 +139,7 @@ const jumpDoc = () => {
         border: 7px solid #f5828b;
         border-radius: 50%;
         position: absolute;
-        right: -50px;
+        inset-inline-end: -50px;
         bottom: 86px;
         animation-name: zoom1;
         animation-duration: 3s;
@@ -156,7 +156,7 @@ const jumpDoc = () => {
         width: 25px;
         height: 25px;
         top: -60px;
-        right: 60px;
+        inset-inline-end: 60px;
         animation: spin 2s infinite alternate;
         bottom: 60px;
       }
@@ -169,7 +169,7 @@ const jumpDoc = () => {
         width: 25px;
         height: 25px;
         bottom: 50px;
-        left: 0px;
+        inset-inline-start: 0px;
         animation: spin 3s infinite alternate;
       }
     }

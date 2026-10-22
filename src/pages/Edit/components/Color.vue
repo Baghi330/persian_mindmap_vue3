@@ -88,7 +88,7 @@ export default {
     align-items: center;
     width: 15px;
     height: 15px;
-    margin-right: 5px;
+    margin-inline-end: 5px;
     margin-bottom: 5px;
     cursor: pointer;
   }
@@ -99,7 +99,7 @@ export default {
   align-items: center;
 
   span {
-    margin-right: 5px;
+    margin-inline-end: 5px;
   }
 }
 </style>

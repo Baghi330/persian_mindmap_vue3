@@ -128,13 +128,13 @@ export default {
     .tagItem {
       position: relative;
       padding: 3px 5px;
-      margin-right: 5px;
+      margin-inline-end: 5px;
       margin-bottom: 5px;
       color: #fff;
 
       .delBtn {
         position: absolute;
-        left: 0;
+        inset-inline-start: 0;
         top: 0;
         width: 100%;
         height: 100%;

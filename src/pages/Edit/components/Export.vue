@@ -4,25 +4,25 @@
     v-model="dialogVisible"
     :title="$t('export.title')"
     width="700px"
-    v-loading.fullscreen.lock="loading"
-    :element-loading-text="loadingText"
-    element-loading-spinner="el-icon-loading"
-    element-loading-background="rgba(0, 0, 0, 0.8)"
   >
     <div class="exportContainer" :class="{ isDark: isDark }">
       <div class="nameInputBox">
         <span class="name">{{ $t('export.filename') }}</span>
         <el-input style="width: 300px" v-model="fileName" size="small" @keydown.native.stop></el-input>
-        <el-checkbox v-show="['smm', 'json'].includes(exportType)" v-model="widthConfig" style="margin-left: 12px">
+        <el-checkbox
+          v-show="['smm', 'json'].includes(exportType)"
+          v-model="widthConfig"
+          :style="{ marginInlineStart: '12px' }"
+        >
           {{ $t('export.include') }}
         </el-checkbox>
       </div>
       <div class="paddingInputBox" v-show="['svg', 'png', 'pdf'].includes(exportType)">
         <span class="name">{{ $t('export.paddingX') }}</span>
         <el-input style="width: 100px" v-model="paddingX" size="small" @change="onPaddingChange" @keydown.native.stop></el-input>
-        <span class="name" style="margin-left: 10px">{{ $t('export.paddingY') }}</span>
+        <span class="name" :style="{ marginInlineStart: '10px' }">{{ $t('export.paddingY') }}</span>
         <el-input style="width: 100px" v-model="paddingY" size="small" @change="onPaddingChange" @keydown.native.stop></el-input>
-        <el-checkbox v-show="['png', 'pdf'].includes(exportType)" v-model="isTransparent" style="margin-left: 12px">{{
+        <el-checkbox v-show="['png', 'pdf'].includes(exportType)" v-model="isTransparent" :style="{ marginInlineStart: '12px' }">{{
           $t('export.isTransparent')
         }}</el-checkbox>
       </div>
@@ -66,20 +66,18 @@ import { useI18n } from 'vue-i18n'
 import { downTypeList } from '@/config'
 
 const store = useStore()
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const dialogVisible = ref(false)
 const exportType = ref('smm')
-const fileName = ref('思维导图')
+const fileName = ref(t('export.defaultFileName'))
 const widthConfig = ref(true)
 const isTransparent = ref(false)
-const loading = ref(false)
-const loadingText = ref('')
 const paddingX = ref(10)
 const paddingY = ref(10)
 
 const openNodeRichText = computed(() => store.state.localConfig.openNodeRichText)
 const isDark = computed(() => store.state.isDark)
-const downTypeList2 = computed(() => downTypeList[t.locale] || downTypeList.zh)
+const downTypeList2 = computed(() => downTypeList[locale.value] || downTypeList.fa)
 
 onMounted(() => {
   bus.on('showExport', handleShowExport)
@@ -171,13 +169,13 @@ export default {
     margin-bottom: 20px;
 
     .name {
-      margin-right: 10px;
+      margin-inline-end: 10px;
     }
   }
   .paddingInputBox {
     margin-bottom: 10px;
     .name {
-      margin-right: 10px;
+      margin-inline-end: 10px;
     }
   }
   .tip {
@@ -207,7 +205,7 @@ export default {
       }
       .icon {
         font-size: 30px;
-        margin-right: 10px;
+        margin-inline-end: 10px;
         &.png {
           color: #ffc038;
         }

@@ -118,7 +118,7 @@ export default {
       .icon {
         width: 24px;
         height: 24px;
-        margin-right: 10px;
+        margin-inline-end: 10px;
         margin-bottom: 10px;
         cursor: pointer;
         position: relative;
@@ -135,7 +135,7 @@ export default {
           &::after {
             content: '';
             position: absolute;
-            left: -4px;
+            inset-inline-start: -4px;
             top: -4px;
             width: 28px;
             height: 28px;

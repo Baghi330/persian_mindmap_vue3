@@ -283,9 +283,9 @@ export default {
     justify-content: center;
     flex-direction: column;
     cursor: pointer;
-    margin-right: 20px;
+    margin-inline-end: 20px;
     &:last-of-type {
-      margin-right: 0;
+      margin-inline-end: 0;
     }
     &:hover {
       &:not(.disabled) {
@@ -328,12 +328,12 @@ export default {
       justify-content: flex-start;
       margin-bottom: 10px;
       width: 100%;
-      margin-right: 0;
+      margin-inline-end: 0;
       &:last-of-type {
         margin-bottom: 0;
       }
       .icon {
-        margin-right: 10px;
+        margin-inline-end: 10px;
       }
       .text {
         white-space: nowrap;

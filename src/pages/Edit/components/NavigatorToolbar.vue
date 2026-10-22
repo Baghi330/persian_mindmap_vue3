@@ -51,12 +51,12 @@
  */
 import { ref, onMounted, defineProps, computed } from 'vue'
 import { useStore } from 'vuex'
+import { useI18n } from 'vue-i18n'
 import Scale from './Scale'
 import Fullscreen from './Fullscreen'
 import MouseAction from './MouseAction.vue'
 import bus from '@/utils/bus.js'
 import { langList } from '@/config'
-import i18n from '@/i18n.js'
 import { storeLang, getLang } from '@/api'
 
 const props = defineProps({
@@ -65,6 +65,7 @@ const props = defineProps({
   }
 })
 
+const { locale } = useI18n()
 const store = useStore()
 const openMiniMap = ref(false)
 const lang = ref(getLang())
@@ -81,10 +82,10 @@ const toggleMiniMap = () => {
   bus.emit('toggle_mini_map', openMiniMap.value)
 }
 
-const onLangChange = lang => {
-  i18n.locale = lang
-  console.log('i18n', i18n)
-  storeLang(lang)
+const onLangChange = selectedLang => {
+  lang.value = selectedLang
+  locale.value = selectedLang
+  storeLang(selectedLang)
   bus.emit('lang_change')
 }
 
@@ -104,10 +105,11 @@ export default {
 </script>
 
 <style lang="less" scoped>
+/* نوار افقی پایین در همه زبان‌ها سمت چپ صفحه قرار می‌گیرد */
 .navigatorContainer {
   padding: 0 12px;
   position: fixed;
-  right: 20px;
+  left: 20px;
   bottom: 20px;
   background: hsla(0, 0%, 100%, 0.8);
   border-radius: 5px;
@@ -128,10 +130,10 @@ export default {
     }
   }
   .item {
-    margin-right: 20px;
+    margin-inline-end: 20px;
 
     &:last-of-type {
-      margin-right: 0;
+      margin-inline-end: 0;
     }
     .btn {
       cursor: pointer;

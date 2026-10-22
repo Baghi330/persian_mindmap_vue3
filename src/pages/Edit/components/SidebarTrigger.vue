@@ -35,7 +35,7 @@ export default {
   computed: {
     ...mapState(['activeSidebar', 'isDark']),
     triggerList() {
-      return sidebarTriggerList[this.$i18n.locale] || sidebarTriggerList.zh
+      return sidebarTriggerList[this.$i18n.locale] || sidebarTriggerList.fa
     }
   },
   methods: {
@@ -48,6 +48,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+/* نوار عمودی در همه زبان‌ها سمت راست صفحه قرار می‌گیرد */
 .sidebarTriggerContainer {
   position: fixed;
   right: -60px;

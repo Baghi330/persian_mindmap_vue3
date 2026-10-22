@@ -175,7 +175,7 @@ export default {
       margin: 5px;
       cursor: pointer;
       position: relative;
-      float: left;
+      float: inline-start;
       /deep/ img {
         width: 100%;
         height: 100%;
@@ -188,7 +188,7 @@ export default {
         &::after {
           content: '';
           position: absolute;
-          left: -4px;
+          inset-inline-start: -4px;
           top: -4px;
           width: 28px;
           height: 28px;

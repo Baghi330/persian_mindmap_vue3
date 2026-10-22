@@ -452,18 +452,6 @@ export const shapeList = [
   }
 ]
 
-// 多语言列表
-export const langList = [
-  {
-    value: 'zh',
-    name: '简体中文'
-  },
-  {
-    value: 'en',
-    name: 'English'
-  }
-]
-
 // 侧边栏列表
 export const sidebarTriggerList = [
   {

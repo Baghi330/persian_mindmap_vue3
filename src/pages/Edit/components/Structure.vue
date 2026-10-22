@@ -19,12 +19,13 @@
 
 <script setup>
 import { toRaw, ref, onMounted, nextTick, watch, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import Sidebar from './Sidebar'
-import { layoutList } from 'simple-mind-map/src/constants/constant'
 import { storeConfig } from '@/api'
 import bus from '@/utils/bus.js'
 import { mapState, useStore } from 'vuex'
 import { layoutImgMap } from '@/config/constant.js'
+import { structureList } from '@/config'
 /**
  * @Author: 黄原寅
  * @Desc: 结构
@@ -36,10 +37,16 @@ const props = defineProps({
 })
 
 const store = useStore()
+const { locale } = useI18n()
 const activeSidebar = computed(() => store.state.activeSidebar)
 const isDark = computed(() => store.state.isDark)
 const layout = ref('')
 const sidebar = ref(null)
+
+// 布局结构列表（多语言）
+const layoutList = computed(() => {
+  return structureList[locale.value] || structureList.fa
+})
 
 watch(
   () => activeSidebar.value,
@@ -66,13 +73,12 @@ onMounted(() => {
  * @Author: 黄原寅
  * @Desc: 使用主题
  */
-const useLayout = layout => {
-  layout.value = layout.value
-  // this.mindMap.setLayout(layout.value);
+const useLayout = selectedLayout => {
+  layout.value = selectedLayout.value
   // 通过toRaw拿到mindMap的原始数据
-  toRaw(props.mindMap).setLayout(layout.value)
+  toRaw(props.mindMap).setLayout(selectedLayout.value)
   storeConfig({
-    layout: layout.value
+    layout: selectedLayout.value
   })
 }
 </script>

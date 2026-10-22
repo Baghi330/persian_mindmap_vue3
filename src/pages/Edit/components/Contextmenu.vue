@@ -306,7 +306,7 @@ export default {
 .contextmenuContainer {
   position: fixed;
   font-size: 14px;
-  font-family: PingFangSC-Regular, PingFang SC;
+  font-family: var(--app-font-family);
   font-weight: 400;
   color: #1a1a1a;
   &.isDark {
@@ -363,7 +363,7 @@ export default {
 
     .subItems {
       position: absolute;
-      left: 100%;
+      inset-inline-start: 100%;
       top: 0;
       visibility: hidden;
     }

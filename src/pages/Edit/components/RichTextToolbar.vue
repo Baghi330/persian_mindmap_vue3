@@ -129,7 +129,7 @@ export default {
   computed: {
     ...mapState(['isDark']),
     fontFamilyList() {
-      return fontFamilyList[this.$i18n.locale] || fontFamilyList.zh
+      return fontFamilyList[this.$i18n.locale] || fontFamilyList.fa
     }
   },
   mounted() {

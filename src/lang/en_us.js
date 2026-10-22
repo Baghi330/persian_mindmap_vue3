@@ -120,7 +120,8 @@ export default {
     paddingX: 'Padding x',
     paddingY: 'Padding y',
     useMultiPageExport: 'Export multi page',
-    defaultFileName: 'Mind map'
+    defaultFileName: 'Mind map',
+    exportFailed: 'Export failed'
   },
   fullscreen: {
     fullscreen: 'Fullscreen',
@@ -130,6 +131,10 @@ export default {
   import: {
     title: 'Import',
     selectFile: 'Select file',
+    desc: 'Select a file and a mind map will be created from it',
+    dropTip: 'Drop a file here or click to select',
+    fileTypes: 'Supported formats',
+    replaceFile: 'Replace file',
     supportFile: 'Support .smm、.json、.xmind、.xlsx、.md file',
     enableFileTip: 'Please select .smm、.json、.xmind、.xlsx、.md file',
     maxFileNum: 'At most one file can be selected',
@@ -147,14 +152,22 @@ export default {
   nodeHyperlink: {
     title: 'Link',
     link: 'Href',
-    name: 'Name'
+    name: 'Name',
+    noProtocol: 'None'
   },
   nodeIcon: {
     title: 'Icon'
   },
+  imgUpload: {
+    tip: 'Click here to select an image, or drag an image here'
+  },
   nodeImage: {
     title: 'Image',
-    imgTitle: 'Title'
+    imgTitle: 'Title',
+    methodOne: 'Method one',
+    methodTwo: 'Method two',
+    imgUrl: 'Please enter the image address',
+    optional: 'Optional'
   },
   nodeNote: {
     title: 'Note'
@@ -205,7 +218,9 @@ export default {
     vertical: 'Vertical',
     gradientStyle: 'Gradient',
     startColor: 'Start',
-    endColor: 'End'
+    endColor: 'End',
+    selectPlaceholder: 'Please select...',
+    selectNodeTip: 'Please select a node'
   },
   theme: {
     title: 'Theme',
@@ -261,7 +276,8 @@ export default {
     splitByWrap: 'Is automatically split nodes based on line breaks?',
     tip: 'Tip',
     yes: 'Yes',
-    no: 'No'
+    no: 'No',
+    defaultNodeText: 'Branch topic'
   },
   mouseAction: {
     tip1: 'Current: Left click to drag the canvas, right click to box select nodes',
@@ -299,5 +315,148 @@ export default {
   },
   other: {
     loading: 'Loading, please wait...'
+  },
+  index: {
+    header: {
+      home: 'Home',
+      online: 'Online',
+      client: 'Desktop',
+      help: 'User guide',
+      doc: 'Developer docs'
+    },
+    block1: {
+      row1: 'A mind map library',
+      row2: 'And also a mind map application',
+      row3: 'Open source, free, powerful...',
+      desc: 'Whether you are a developer or a user, if you like mind maps, you will find everything you need in this project.',
+      useOnline: 'Use online',
+      doc: 'Developer docs'
+    },
+    block2: {
+      title: 'Why choose Simple mind map?',
+      desc1: 'If you are a developer: Simple mind map provides a fully featured js mind map library that does not depend on any framework, so you can quickly build web mind map products with it.',
+      desc2: 'If you are a user: Simple mind map provides a complete mind map application with both online and desktop versions, and all features are completely free.',
+      stats: {
+        star: '600+ Github stars',
+        fork: '150+ Github forks',
+        download: '10000+ npm downloads',
+        contributor: '8+ code contributors'
+      },
+      features: {
+        theme: {
+          name: 'Theme',
+          value: 'Built-in multiple themes, highly customizable styles, support registering new themes.'
+        },
+        structure: {
+          name: 'Structure',
+          value: 'Supports common structures such as logical diagram, mind map, organization chart, catalog organization, timeline and fishbone diagram.'
+        },
+        shortcutKey: {
+          name: 'Shortcut keys',
+          value: 'Common operations support shortcut keys, which makes usage easier.'
+        },
+        richText: {
+          name: 'Rich text',
+          value: 'Nodes support both plain text and rich text, so you can create richly styled node content.'
+        },
+        image: {
+          name: 'Image',
+          value: 'Select any node and upload an image to make the content more visual.'
+        },
+        summary: {
+          name: 'Summary',
+          value: 'Summaries help to express the relationship between several nodes.'
+        },
+        icon: {
+          name: 'Icon',
+          value: 'Add icons to enrich the content of nodes.'
+        },
+        hyperlink: {
+          name: 'Hyperlink',
+          value: 'Nodes can contain hyperlinks, a simple click jumps to the target.'
+        },
+        note: {
+          name: 'Note',
+          value: 'Detailed content can be placed in notes to keep nodes clean and simple.'
+        },
+        tag: {
+          name: 'Tag',
+          value: 'Add colored tags to highlight the key points.'
+        },
+        associativeLine: {
+          name: 'Associative line',
+          value: 'Add associative lines to show the relations between nodes.'
+        },
+        drag: {
+          name: 'Drag',
+          value: 'Both the canvas and the nodes can be dragged.'
+        },
+        navigator: {
+          name: 'Navigator',
+          value: 'The navigator tells you which part of the mind map the canvas is showing.'
+        },
+        importExport: {
+          name: 'Import & export',
+          value: 'Supports importing and exporting multiple file formats.'
+        },
+        watermark: {
+          name: 'Watermark',
+          value: 'Built-in watermark feature to prevent privacy leaks.'
+        },
+        backForward: {
+          name: 'Undo & redo',
+          value: 'Accidentally deleted or modified content can be undone or restored with one click.'
+        },
+        outline: {
+          name: 'Outline',
+          value: 'Edit the mind map with the outline, which makes the content more detailed and less error-prone.'
+        },
+        richSettings: {
+          name: 'Rich settings',
+          value: 'Provides plenty of settings so you can pick the behavior that suits you.'
+        }
+      }
+    },
+    block3: {
+      title: 'Desktop app',
+      info: 'Supports Windows, Mac and Linux.',
+      desc:
+        'In the online version the data is stored in the browser cache by default and local files can be used as well, but the online version is limited by the network environment, it may be slow to access and switching between multiple files is not convenient. That is why the desktop version is provided, it is simple but not crude.',
+      baiduDownload: 'Baidu netdisk download',
+      githubDownload: 'Github download'
+    },
+    block4: {
+      title: 'JavaScript library',
+      info: 'simple-mind-map is a simple and powerful web mind map library. It does not depend on any specific framework and helps you build mind map products quickly.',
+      info2: 'It is very easy to use, only three steps are needed to render a mind map:',
+      step1: 'Step one: install',
+      step2: 'Step two: import',
+      step3: 'Step three: instantiate',
+      codeCommentEl: 'Provide a container element whose width and height are not 0',
+      codeCommentData: 'Mind map data',
+      codeRootText: 'Root node',
+      more: 'See more'
+    },
+    block5: {
+      title: 'Ideal Youth Lab',
+      desc: 'Focused on frontend, writing and open source.',
+      moreWorks: 'More works',
+      juejin: 'Juejin',
+      segmentfault: 'SegmentFault',
+      works: {
+        codeRun: 'An online code editor and preview tool, similar to codepen, jsbin and jsfiddle',
+        tinyWhiteboard: 'An online whiteboard, similar to excalidraw',
+        markjs: 'A pluggable polygon annotation library',
+        webMapEngine: 'A simple 2D map loader',
+        simpleNoviceGuide: 'A simple novice guide library',
+        canvasEditor: 'A rich text editor demo built with Canvas',
+        jsonTreeView: 'A simple json formatting plugin',
+        simpleFlowChart: 'A flow designer based on flex layout',
+        videoTimeLine: 'A video timeline component based on Vue2',
+        markdownEditor: 'A Markdown editor with precise scroll synchronization',
+        associationLine: 'Study of associative lines and how to connect two nodes of a flow chart',
+        handPaintedStyle: 'A simple implementation of hand painted style graphics'
+      }
+    }
   }
 }

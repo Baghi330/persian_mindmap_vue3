@@ -155,7 +155,7 @@ export default {
   box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.1);
   position: fixed;
   top: 110px;
-  right: -296px;
+  left: -296px;
   transition: all 0.3s;
   &.isDark {
     background-color: #363b3f;
@@ -165,7 +165,7 @@ export default {
     }
   }
   &.show {
-    right: 20px;
+    left: 20px;
   }
   .btnList {
     display: flex;
@@ -173,7 +173,7 @@ export default {
   }
   .closeBtnBox {
     position: absolute;
-    right: -5px;
+    left: -5px;
     top: -5px;
     width: 20px;
     height: 20px;
@@ -192,7 +192,7 @@ export default {
     position: relative;
     .searchInfo {
       position: absolute;
-      right: 70px;
+      inset-inline-end: 70px;
       top: 50%;
       transform: translateY(-50%);
       color: #909090;

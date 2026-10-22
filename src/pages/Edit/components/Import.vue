@@ -1,18 +1,38 @@
 <template>
-  <el-dialog custom-class="nodeImportDialog" v-model="dialogVisible" :title="$t('import.title')" width="600px">
-    <el-upload
-      ref="upload"
-      action="x"
-      :file-list="fileList"
-      :auto-upload="false"
-      :multiple="false"
-      :on-change="onChange"
-      :limit="1"
-      :on-exceed="onExceed"
-    >
-      <el-button slot="trigger" size="default" type="primary">{{ $t('import.selectFile') }}</el-button>
-      <div slot="tip" class="el-upload__tip">{{ $t('import.supportFile') }}</div>
-    </el-upload>
+  <el-dialog
+    custom-class="nodeImportDialog"
+    v-model="dialogVisible"
+    :title="$t('import.title')"
+    width="520px"
+    :close-on-click-modal="false"
+  >
+    <div class="importContainer" :class="{ isDark: isDark }">
+      <div class="importDesc">{{ $t('import.desc') }}</div>
+      <el-upload
+        ref="upload"
+        class="importUpload"
+        drag
+        action="x"
+        :file-list="fileList"
+        :auto-upload="false"
+        :multiple="false"
+        :on-change="onChange"
+        :limit="1"
+        :on-exceed="onExceed"
+      >
+        <el-icon class="uploadIcon">
+          <UploadFilled />
+        </el-icon>
+        <div class="uploadText">{{ $t('import.dropTip') }}</div>
+        <div class="uploadFileTypes">
+          <span class="fileTypeTag" v-for="item in fileTypeList" :key="item.name">{{ item.name }}</span>
+        </div>
+      </el-upload>
+      <div class="fileTypeTip">
+        <span class="tipTitle">{{ $t('import.fileTypes') }}</span>
+        <span class="tipText">{{ $t('import.supportFile') }}</span>
+      </div>
+    </div>
     <template #footer>
       <span class="dialog-footer">
         <el-button @click="cancel">{{ $t('dialog.cancel') }}</el-button>
@@ -27,20 +47,34 @@
  * @Author: 黄原寅
  * @Desc: 导入功能
  */
-import { onBeforeMount, onMounted, ref, watch } from 'vue'
-import { route } from 'vue-router'
-import bus from '@/utils/bus.js'
+import { onBeforeMount, onMounted, ref, watch, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useRoute } from 'vue-router'
+import { UploadFilled } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
+import { useStore } from 'vuex'
+import bus from '@/utils/bus.js'
 // import MindMap from 'simple-mind-map'
 import xmind from 'simple-mind-map/src/parse/xmind.js'
 import markdown from 'simple-mind-map/src/parse/markdown.js'
-import { useStore } from 'vuex'
 import { fileToBuffer } from '@/utils'
 import { read, utils } from 'xlsx'
 
+const { t } = useI18n()
+const route = useRoute()
 const dialogVisible = ref(false)
 const fileList = ref([])
 const store = useStore()
+const isDark = computed(() => store.state.isDark)
+
+// 支持的文件格式
+const fileTypeList = [
+  { name: '.smm' },
+  { name: '.json' },
+  { name: '.xmind' },
+  { name: '.xlsx' },
+  { name: '.md' }
+]
 
 watch(
   () => dialogVisible.value,
@@ -102,7 +136,7 @@ const onChange = file => {
   let reg = /\.(smm|xmind|json|xlsx|md)$/
   if (!reg.test(file.name)) {
     ElMessage({
-      message: '请选择.smm、.json、.xmind、.xlsx、.md文件',
+      message: t('import.enableFileTip'),
       type: 'error'
     })
     fileList.value = []
@@ -117,7 +151,7 @@ const onChange = file => {
  */
 const onExceed = () => {
   ElMessage({
-    message: '最多只能选择一个文件',
+    message: t('import.maxFileNum'),
     type: 'warning'
   })
 }
@@ -137,7 +171,7 @@ const cancel = () => {
 const confirm = () => {
   if (fileList.value.length <= 0) {
     return ElMessage({
-      message: '请选择要导入的文件',
+      message: t('import.notSelectTip'),
       type: 'warning'
     })
   }
@@ -166,17 +200,17 @@ const handleSmm = file => {
     try {
       let data = JSON.parse(evt.target.result)
       if (typeof data !== 'object') {
-        throw new Error('文件内容有误')
+        throw new Error(t('import.fileContentError'))
       }
       bus.emit('setData', data)
       ElMessage({
-        message: '导入成功',
+        message: t('import.importSuccess'),
         type: 'success'
       })
     } catch (error) {
       console.log(error)
       ElMessage({
-        message: '文件解析失败',
+        message: t('import.fileParsingFailed'),
         type: 'error'
       })
     }
@@ -193,13 +227,13 @@ const handleXmind = async file => {
     let data = await xmind.parseXmindFile(file.raw) // 将xmind解析方法从MindMap类上移除，改为按需引入方式使用
     bus.emit('setData', data)
     ElMessage({
-      message: '导入成功',
+      message: t('import.importSuccess'),
       type: 'success'
     })
   } catch (error) {
     console.log(error)
     ElMessage({
-      message: '文件解析失败',
+      message: t('import.fileParsingFailed'),
       type: 'error'
     })
   }
@@ -263,10 +297,10 @@ const handleExcel = async file => {
       }
     }
     bus.emit('setData', layers[0][0])
-    ElMessage.success('导入成功')
+    ElMessage.success(t('import.importSuccess'))
   } catch (error) {
     console.log(error)
-    ElMessage.error('文件解析失败')
+    ElMessage.error(t('import.fileParsingFailed'))
   }
 }
 /**
@@ -281,13 +315,13 @@ const handleMd = async file => {
       let data = await markdown.transformMarkdownTo(evt.target.result)
       bus.emit('setData', data)
       ElMessage({
-        message: '导入成功',
+        message: t('import.importSuccess'),
         type: 'success'
       })
     } catch (error) {
       console.log(error)
       ElMessage({
-        message: '文件解析失败',
+        message: t('import.fileParsingFailed'),
         type: 'error'
       })
     }
@@ -302,7 +336,163 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.el-upload__tip {
-  margin: 0 0 0 5px;
+.importContainer {
+  .importDesc {
+    color: #828f99;
+    font-size: 13px;
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+
+  .importUpload {
+    width: 100%;
+    :deep(.el-upload) {
+      width: 100%;
+    }
+    :deep(.el-upload-dragger) {
+      width: 100%;
+      padding: 28px 20px;
+      border-radius: 12px;
+      background-color: #fafbfc;
+      border: 1px dashed #dcdfe6;
+      transition: all 0.3s;
+      &:hover {
+        border-color: #409eff;
+        background-color: #f5f9ff;
+      }
+    }
+    :deep(.is-dragover .el-upload-dragger) {
+      border-color: #409eff;
+      background-color: #ecf5ff;
+    }
+    .uploadIcon {
+      font-size: 52px;
+      color: #c0c4cc;
+      transition: color 0.3s;
+    }
+    :deep(.el-upload-dragger:hover) .uploadIcon {
+      color: #409eff;
+    }
+    .uploadText {
+      margin-top: 12px;
+      color: #606266;
+      font-size: 14px;
+    }
+    .uploadFileTypes {
+      margin-top: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px;
+      .fileTypeTag {
+        padding: 2px 10px;
+        border-radius: 20px;
+        font-size: 12px;
+        color: #606266;
+        background-color: #fff;
+        border: 1px solid #ebeef5;
+      }
+    }
+    // 已选择的文件
+    :deep(.el-upload-list) {
+      margin-top: 12px;
+      .el-upload-list__item {
+        border-radius: 8px;
+        padding: 8px 12px;
+        background-color: #f5f7fa;
+        border-color: #ebeef5;
+        .el-upload-list__item-name {
+          color: #303133;
+        }
+      }
+    }
+  }
+
+  .fileTypeTip {
+    margin-top: 14px;
+    display: flex;
+    align-items: flex-start;
+    .tipTitle {
+      flex-shrink: 0;
+      margin-inline-end: 8px;
+      color: #303133;
+      font-size: 13px;
+      font-weight: 500;
+    }
+    .tipText {
+      color: #909399;
+      font-size: 12px;
+      line-height: 1.7;
+    }
+  }
+
+  &.isDark {
+    .importDesc {
+      color: hsla(0, 0%, 100%, 0.6);
+    }
+    .importUpload {
+      :deep(.el-upload-dragger) {
+        background-color: #363b3f;
+        border-color: hsla(0, 0%, 100%, 0.15);
+        &:hover {
+          border-color: #409eff;
+          background-color: hsla(0, 0%, 100%, 0.06);
+        }
+      }
+      .uploadIcon {
+        color: hsla(0, 0%, 100%, 0.3);
+      }
+      :deep(.el-upload-dragger:hover) .uploadIcon {
+        color: #409eff;
+      }
+      .uploadText {
+        color: hsla(0, 0%, 100%, 0.8);
+      }
+      .uploadFileTypes {
+        .fileTypeTag {
+          color: hsla(0, 0%, 100%, 0.7);
+          background-color: #262a2e;
+          border-color: hsla(0, 0%, 100%, 0.15);
+        }
+      }
+      :deep(.el-upload-list) {
+        .el-upload-list__item {
+          background-color: #262a2e;
+          border-color: hsla(0, 0%, 100%, 0.15);
+          .el-upload-list__item-name {
+            color: hsla(0, 0%, 100%, 0.85);
+          }
+        }
+      }
+    }
+    .fileTypeTip {
+      .tipTitle {
+        color: hsla(0, 0%, 100%, 0.85);
+      }
+      .tipText {
+        color: hsla(0, 0%, 100%, 0.5);
+      }
+    }
+  }
+}
+</style>
+<style lang="less">
+// 弹窗样式（非 scoped，因为内容渲染在 el-dialog 内部）
+.nodeImportDialog {
+  border-radius: 12px;
+  .el-dialog__header {
+    margin-right: 0;
+    padding: 20px 24px 12px;
+  }
+  .el-dialog__title {
+    font-size: 17px;
+    font-weight: 600;
+  }
+  .el-dialog__body {
+    padding: 12px 24px 20px;
+  }
+  .el-dialog__footer {
+    padding: 0 24px 20px;
+  }
 }
 </style>

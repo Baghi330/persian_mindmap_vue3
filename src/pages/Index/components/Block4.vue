@@ -2,31 +2,31 @@
   <div class="block4Container">
     <div class="blockContent">
       <div class="infoBox">
-        <div class="infoTitle">JavaScript库</div>
-        <div class="info">simple-mind-map是一个简单&强大的Web思维导图库，不依赖任何特定框架，可以帮助你快速开发思维导图产品。</div>
-        <div class="info">使用非常简单，只需三步即可渲染出一个思维导图：</div>
-        <div class="info">第一步：安装</div>
+        <div class="infoTitle">{{ $t('index.block4.title') }}</div>
+        <div class="info">{{ $t('index.block4.info') }}</div>
+        <div class="info">{{ $t('index.block4.info2') }}</div>
+        <div class="info">{{ $t('index.block4.step1') }}</div>
         <div class="codeBox">
           <pre><code class="language-bash" ref="code1">
 npm i simple-mind-map
             </code></pre>
         </div>
-        <div class="info">第二步：引入</div>
+        <div class="info">{{ $t('index.block4.step2') }}</div>
         <div class="codeBox">
           <pre><code class="language-javascript" ref="code2">
 import MindMap from "simple-mind-map"
             </code></pre>
         </div>
-        <div class="info">第三步：实例化</div>
+        <div class="info">{{ $t('index.block4.step3') }}</div>
         <div class="codeBox">
           <pre><code class="language-javascript" ref="code3">
 const mindMap = new MindMap({
-  // 提供一个宽高不为0的容器元素
+  // {{ $t('index.block4.codeCommentEl') }}
   el: document.getElementById('mindMapContainer'),
-  // 思维导图数据
+  // {{ $t('index.block4.codeCommentData') }}
   data: {
     "data": {
-        "text": "根节点"
+        "text": "{{ $t('index.block4.codeRootText') }}"
     },
     "children": []
   }
@@ -34,7 +34,7 @@ const mindMap = new MindMap({
             </code></pre>
         </div>
         <div class="btnList">
-          <div class="btn" @click="jumpDoc">查看更多</div>
+          <div class="btn" @click="jumpDoc">{{ $t('index.block4.more') }}</div>
         </div>
       </div>
       <div class="picBox"></div>
@@ -43,7 +43,9 @@ const mindMap = new MindMap({
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch, nextTick } from 'vue'
+import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import hljs from 'highlight.js/lib/core'
 import javascript from 'highlight.js/lib/languages/javascript'
 import bash from 'highlight.js/lib/languages/bash'
@@ -51,14 +53,27 @@ import 'highlight.js/styles/github.css'
 hljs.registerLanguage('javascript', javascript)
 hljs.registerLanguage('bash', bash)
 
+const router = useRouter()
+const { locale } = useI18n()
 const code1 = ref(null)
 const code2 = ref(null)
 const code3 = ref(null)
 
-onMounted(() => {
+// کدهای نمونه بعد از تغییر زبان دوباره رنگ‌آمیزی می شوند
+const highlightCode = () => {
   hljs.highlightElement(code1.value)
   hljs.highlightElement(code2.value)
   hljs.highlightElement(code3.value)
+}
+
+onMounted(() => {
+  highlightCode()
+})
+
+watch(locale, () => {
+  nextTick(() => {
+    highlightCode()
+  })
 })
 
 const jumpDoc = () => {
@@ -87,7 +102,7 @@ const jumpDoc = () => {
     }
 
     .infoBox {
-      margin-right: 50px;
+      margin-inline-end: 50px;
 
       .infoTitle {
         font-weight: 700;
@@ -118,7 +133,7 @@ const jumpDoc = () => {
           border-color: #1ea59a;
           border-radius: 5px;
           transition: all 0.5s;
-          margin-right: 10px;
+          margin-inline-end: 10px;
           margin-top: 20px;
           height: 100%;
           padding: 0 20px;

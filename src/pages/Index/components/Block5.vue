@@ -2,8 +2,8 @@
   <div class="block5Container">
     <div class="blockContent">
       <div class="infoBox">
-        <div class="infoTitle">理想青年实验室</div>
-        <div class="infoDesc">专注前端、写作、开源。</div>
+        <div class="infoTitle">{{ $t('index.block5.title') }}</div>
+        <div class="infoDesc">{{ $t('index.block5.desc') }}</div>
         <div class="linkBtnList">
           <div class="linkBtn">
             <a href="https://github.com/wanglin2" target="_blank">
@@ -12,12 +12,12 @@
           </div>
           <div class="linkBtn">
             <a href="https://juejin.cn/user/325111170756279" target="_blank">
-              <span class="linkBtnIcon text">掘金</span>
+              <span class="linkBtnIcon text">{{ $t('index.block5.juejin') }}</span>
             </a>
           </div>
           <div class="linkBtn">
             <a href="https://segmentfault.com/u/jiejiaoxiaolin/articles" target="_blank">
-              <span class="linkBtnIcon text">思否</span>
+              <span class="linkBtnIcon text">{{ $t('index.block5.segmentfault') }}</span>
             </a>
           </div>
           <div class="linkBtn">
@@ -38,10 +38,10 @@
         </div>
       </div>
       <div class="linkBox">
-        <div class="linkTitle">更多作品</div>
+        <div class="linkTitle">{{ $t('index.block5.moreWorks') }}</div>
         <div class="linkList">
           <div class="linkItem" v-for="item in linkList" :key="item.name">
-            <el-tooltip :content="item.desc" placement="top">
+            <el-tooltip :content="$t(item.descKey)" placement="top">
               <a :href="item.url" target="_blank">{{ item.name }}</a>
             </el-tooltip>
           </div>
@@ -56,62 +56,62 @@ const linkList = [
   {
     name: 'CodeRun',
     url: 'https://github.com/wanglin2/code-run',
-    desc: '一个代码在线编辑预览工具，类似codepen、jsbin、jsfiddle等'
+    descKey: 'index.block5.works.codeRun'
   },
   {
     name: 'TinyWhiteboard',
     url: 'https://github.com/wanglin2/tiny_whiteboard',
-    desc: '一个在线小白板，类似excalidraw'
+    descKey: 'index.block5.works.tinyWhiteboard'
   },
   {
     name: 'Mark.js',
     url: 'https://github.com/wanglin2/markjs',
-    desc: '一个插件化的多边形标注库'
+    descKey: 'index.block5.works.markjs'
   },
   {
     name: 'WebMapEngine',
     url: 'https://github.com/wanglin2/web_map_demo',
-    desc: '一个简单的2D地图加载器'
+    descKey: 'index.block5.works.webMapEngine'
   },
   {
     name: 'SimpleNoviceGuide',
     url: 'https://github.com/wanglin2/simple-novice-guide',
-    desc: ' 一个简洁的新手引导库'
+    descKey: 'index.block5.works.simpleNoviceGuide'
   },
   {
     name: 'CanvasEditor',
     url: 'https://github.com/wanglin2/canvas-editor-demo',
-    desc: '一个用Canvas做的富文本编辑器Demo'
+    descKey: 'index.block5.works.canvasEditor'
   },
   {
     name: 'JsonTreeView',
     url: 'https://github.com/wanglin2/json-tree-view',
-    desc: '一个简洁的json格式化插件'
+    descKey: 'index.block5.works.jsonTreeView'
   },
   {
     name: 'SimpleFlowChart',
     url: 'https://github.com/wanglin2/simple-flow-chart',
-    desc: '一个用flex布局做的流程设计器'
+    descKey: 'index.block5.works.simpleFlowChart'
   },
   {
     name: 'VideoTimeLine',
     url: 'https://github.com/wanglin2/VideoTimeLine',
-    desc: '一个基于Vue2的视频时间轴组件'
+    descKey: 'index.block5.works.videoTimeLine'
   },
   {
     name: 'MarkdownEditor',
     url: 'https://github.com/wanglin2/markdown_editor_sync_scroll_demo',
-    desc: '一个能精确同步滚动的Markdown编辑器'
+    descKey: 'index.block5.works.markdownEditor'
   },
   {
     name: 'AssociationLine',
     url: 'https://github.com/wanglin2/AssociationLineDemo',
-    desc: '关联线探究，如何连接流程图的两个节点'
+    descKey: 'index.block5.works.associationLine'
   },
   {
     name: 'HandPaintedStyle',
     url: 'https://github.com/wanglin2/handPaintedStyle',
-    desc: '手绘风格图形的简单实现'
+    descKey: 'index.block5.works.handPaintedStyle'
   }
 ]
 </script>
@@ -156,7 +156,7 @@ const linkList = [
           overflow: hidden;
           background-color: #f0f9fa;
           border: 2px solid #dbf1f1;
-          margin-right: 10px;
+          margin-inline-end: 10px;
 
           a {
             width: 100%;
@@ -190,7 +190,7 @@ const linkList = [
     }
 
     .linkBox {
-      margin-left: 150px;
+      margin-inline-start: 150px;
       .linkTitle {
         font-size: 20px;
         font-weight: 700;
@@ -204,7 +204,7 @@ const linkList = [
         flex-wrap: wrap;
 
         .linkItem {
-          margin-right: 20px;
+          margin-inline-end: 20px;
           margin-bottom: 10px;
 
           a {

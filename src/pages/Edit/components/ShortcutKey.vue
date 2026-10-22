@@ -56,7 +56,7 @@ export default {
   computed: {
     ...mapState(['activeSidebar', 'isDark']),
     shortcutKeyList() {
-      return shortcutKeyList[this.$i18n.locale] || shortcutKeyList.zh
+      return shortcutKeyList[this.$i18n.locale] || shortcutKeyList.fa
     }
   },
   watch: {
@@ -111,7 +111,7 @@ export default {
 
       .icon {
         font-size: 16px;
-        margin-right: 16px;
+        margin-inline-end: 16px;
       }
 
       .name {
@@ -123,7 +123,7 @@ export default {
 
       .value {
         color: #909090;
-        margin-left: auto;
+        margin-inline-start: auto;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;

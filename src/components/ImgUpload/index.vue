@@ -3,7 +3,7 @@
     <div class="imgUploadPanel">
       <div class="upBtn" v-if="!value">
         <label for="imgUploadInput" class="imgUploadInputArea" @dragenter.stop.prevent @dragover.stop.prevent @drop.stop.prevent="onDrop"
-          >点击此处选择图片、或拖动图片到此</label
+          >{{ $t('imgUpload.tip') }}</label
         >
         <input type="file" accept="image/*" id="imgUploadInput" @change="onImgUploadInputChange" />
       </div>
@@ -45,7 +45,6 @@ export default {
      * @Desc: 图片选择事件
      */
     onImgUploadInputChange(e) {
-      console.log('e', e)
       let file = e.target.files[0]
       this.selectImg(file)
     },

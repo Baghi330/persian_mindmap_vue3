@@ -105,10 +105,10 @@ export default {
       width: 10px;
       top: 100px;
       bottom: 100px;
-      left: 20px;
+      inset-inline-start: 20px;
       .scrollbarInner {
         width: 10px;
-        left: 0;
+        inset-inline-start: 0;
       }
     }
     &.horizontalScrollbar {

@@ -7,7 +7,7 @@
           <el-select v-model="protocol" slot="prepend" style="width: 80px">
             <el-option label="https" value="https"></el-option>
             <el-option label="http" value="http"></el-option>
-            <el-option label="无" value="none"></el-option>
+            <el-option :label="$t('nodeHyperlink.noProtocol')" value="none"></el-option>
           </el-select>
         </template>
       </el-input>

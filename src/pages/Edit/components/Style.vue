@@ -216,7 +216,7 @@
               size="small"
               style="width: 80px"
               v-model="style.lineDasharray"
-              placeholder="请选择..."
+              :placeholder="$t('style.selectPlaceholder')"
               @change="update('lineDasharray')"
             >
               <el-option v-for="item in borderDasharrayList" :key="item.value" :label="item.name" :value="item.value">
@@ -238,7 +238,13 @@
         <div class="row">
           <div class="rowItem">
             <span class="name">{{ $t('style.width') }}</span>
-            <el-select size="small" style="width: 80px" v-model="style.lineWidth" placeholder="请选择..." @change="update('lineWidth')">
+            <el-select
+              size="small"
+              style="width: 80px"
+              v-model="style.lineWidth"
+              :placeholder="$t('style.selectPlaceholder')"
+              @change="update('lineWidth')"
+            >
               <el-option v-for="item in borderWidthList" :key="item" :label="item" :value="item">
                 <span v-if="item > 0" class="borderLine" :class="{ isDark: isDark }" :style="{ height: item + 'px' }"></span>
               </el-option>
@@ -263,7 +269,7 @@
     </div>
     <div class="tipBox" v-else>
       <div class="tipIcon iconfont icontianjiazijiedian"></div>
-      <div class="tipText">请选择一个节点</div>
+      <div class="tipText">{{ $t('style.selectNodeTip') }}</div>
     </div>
   </Sidebar>
 </template>
@@ -328,13 +334,13 @@ export default {
   computed: {
     ...mapState(['activeSidebar', 'isDark']),
     fontFamilyList() {
-      return fontFamilyList[this.$i18n.locale] || fontFamilyList.zh
+      return fontFamilyList[this.$i18n.locale] || fontFamilyList.fa
     },
     borderDasharrayList() {
-      return borderDasharrayList[this.$i18n.locale] || borderDasharrayList.zh
+      return borderDasharrayList[this.$i18n.locale] || borderDasharrayList.fa
     },
     shapeList() {
-      return shapeList[this.$i18n.locale] || shapeList.zh
+      return shapeList[this.$i18n.locale] || shapeList.fa
     },
     shapeListMap() {
       return shapeListMap[this.$i18n.locale] || shapeListMap.zh
@@ -546,7 +552,7 @@ export default {
 
   .title {
     font-size: 16px;
-    font-family: PingFangSC-Medium, PingFang SC;
+    font-family: var(--app-font-family);
     font-weight: 500;
     color: rgba(26, 26, 26, 0.9);
     margin-bottom: 10px;
@@ -574,7 +580,7 @@ export default {
 
       .name {
         font-size: 12px;
-        margin-right: 10px;
+        margin-inline-end: 10px;
       }
 
       .block {

@@ -2,7 +2,7 @@
   <div class="customNodeContent">
     <p>{{ title }}</p>
     <p v-html="html"></p>
-    <p :style="{ backgroundColor: color }" @click="onClick">点击我会变色</p>
+    <p :style="{ backgroundColor: color }" @click="onClick">با کلیک رنگ من تغییر می‌کند</p>
   </div>
 </template>
 
@@ -16,7 +16,7 @@ export default {
   },
   data() {
     return {
-      title: '我是自定义节点',
+      title: 'من یک گره سفارشی هستم',
       color: ''
     }
   },

@@ -805,22 +805,22 @@ export default {
   computed: {
     ...mapState(['activeSidebar', 'localConfig', 'isDark']),
     lineStyleList() {
-      return lineStyleList[this.$i18n.locale] || lineStyleList.zh
+      return lineStyleList[this.$i18n.locale] || lineStyleList.fa
     },
     rootLineKeepSameInCurveList() {
-      return rootLineKeepSameInCurveList[this.$i18n.locale] || rootLineKeepSameInCurveList.zh
+      return rootLineKeepSameInCurveList[this.$i18n.locale] || rootLineKeepSameInCurveList.fa
     },
     backgroundRepeatList() {
-      return backgroundRepeatList[this.$i18n.locale] || backgroundRepeatList.zh
+      return backgroundRepeatList[this.$i18n.locale] || backgroundRepeatList.fa
     },
     backgroundPositionList() {
-      return backgroundPositionList[this.$i18n.locale] || backgroundPositionList.zh
+      return backgroundPositionList[this.$i18n.locale] || backgroundPositionList.fa
     },
     backgroundSizeList() {
-      return backgroundSizeList[this.$i18n.locale] || backgroundSizeList.zh
+      return backgroundSizeList[this.$i18n.locale] || backgroundSizeList.fa
     },
     fontFamilyList() {
-      return fontFamilyList[this.$i18n.locale] || fontFamilyList.zh
+      return fontFamilyList[this.$i18n.locale] || fontFamilyList.fa
     },
     lineStyleMap() {
       return lineStyleMap[this.$i18n.locale] || lineStyleMap.zh
@@ -1082,7 +1082,7 @@ export default {
 
   .title {
     font-size: 16px;
-    font-family: PingFangSC-Medium, PingFang SC;
+    font-family: var(--app-font-family);
     font-weight: 500;
     color: rgba(26, 26, 26, 0.9);
     margin-bottom: 10px;
@@ -1123,7 +1123,7 @@ export default {
 
       .name {
         font-size: 12px;
-        margin-right: 10px;
+        margin-inline-end: 10px;
         white-space: nowrap;
       }
 

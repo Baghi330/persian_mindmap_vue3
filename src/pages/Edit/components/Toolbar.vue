@@ -5,7 +5,14 @@
       <div class="toolbarBlock">
         <ToolbarNodeBtnList :list="horizontalList"></ToolbarNodeBtnList>
         <!-- 更多 -->
-        <el-popover v-model="popoverShow" placement="bottom-end" width="120" trigger="hover" v-if="showMoreBtn" style="margin-left: 20px">
+        <el-popover
+          v-model="popoverShow"
+          placement="bottom-end"
+          width="120"
+          trigger="hover"
+          v-if="showMoreBtn"
+          :style="{ marginInlineStart: '20px' }"
+        >
           <ToolbarNodeBtnList dir="v" :list="verticalList" @click.native="popoverShow = false"></ToolbarNodeBtnList>
           <div slot="reference" class="toolbarBtn">
             <span class="icon iconfont icongongshi"></span>
@@ -80,8 +87,7 @@ import Export from './Export'
 import Import from './Import'
 import { mapState } from 'vuex'
 import { ElNotification } from 'element-plus'
-import exampleData from 'simple-mind-map/example/exampleData'
-import { getData } from '../../../api'
+import { getData, getDefaultExampleData } from '../../../api'
 import bus from '@/utils/bus.js'
 import ToolbarNodeBtnList from './ToolbarNodeBtnList.vue'
 import { throttle } from 'simple-mind-map/src/utils/index'
@@ -268,7 +274,7 @@ export default {
         } else {
           this.isFullDataFile = false
           data = {
-            ...exampleData,
+            ...getDefaultExampleData(),
             root: data
           }
         }
@@ -301,7 +307,7 @@ export default {
      * @Desc: 创建本地文件
      */
     async createNewLocalFile() {
-      await this.createLocalFile(exampleData)
+      await this.createLocalFile(getDefaultExampleData())
     },
 
     /**
@@ -392,7 +398,7 @@ export default {
     padding: 0 20px;
     padding-top: 20px;
     font-size: 12px;
-    font-family: PingFangSC-Regular, PingFang SC;
+    font-family: var(--app-font-family);
     font-weight: 400;
     color: rgba(26, 26, 26, 0.8);
     z-index: 2;
@@ -404,10 +410,10 @@ export default {
       border-radius: 6px;
       box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.06);
       border: 1px solid rgba(0, 0, 0, 0.06);
-      margin-right: 20px;
+      margin-inline-end: 20px;
 
       &:last-of-type {
-        margin-right: 0;
+        margin-inline-end: 0;
       }
     }
 
@@ -416,11 +422,11 @@ export default {
       justify-content: center;
       flex-direction: column;
       cursor: pointer;
-      margin-right: 20px;
+      margin-inline-end: 20px;
       flex-shrink: 0;
 
       &:last-of-type {
-        margin-right: 0;
+        margin-inline-end: 0;
       }
 
       &:hover {

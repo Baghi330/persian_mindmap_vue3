@@ -313,7 +313,7 @@ const onKeyDown = e => {
   .nodeEdit {
     outline: none;
     white-space: normal;
-    padding-right: 20px;
+    padding-inline-end: 20px;
   }
 }
 .outlineTree {
@@ -360,7 +360,7 @@ const onKeyDown = e => {
           width: 5px;
           height: 5px;
           border-radius: 50%;
-          left: 10px;
+          inset-inline-start: 10px;
           top: 50%;
           transform: translateY(-50%);
         }

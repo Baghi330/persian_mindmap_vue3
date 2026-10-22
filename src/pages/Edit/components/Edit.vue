@@ -44,6 +44,7 @@ import Painter from 'simple-mind-map/src/plugins/Painter.js'
 import ScrollbarPlugin from 'simple-mind-map/src/plugins/Scrollbar.js'
 import Formula from 'simple-mind-map/src/plugins/Formula.js'
 import Cooperate from 'simple-mind-map/src/plugins/Cooperate.js'
+import { registerLayouts } from '@/layouts'
 import OutlineSidebar from './OutlineSidebar'
 import Style from './Style'
 import BaseStyle from './BaseStyle'
@@ -58,7 +59,7 @@ import NodeNoteContentShow from './NodeNoteContentShow.vue'
 import Navigator from './Navigator.vue'
 import NodeImgPreview from './NodeImgPreview.vue'
 import SidebarTrigger from './SidebarTrigger.vue'
-import { getData, storeData, storeConfig } from '@/api'
+import { getData, storeData, storeConfig, getDefaultExampleData } from '@/api'
 import bus from '@/utils/bus.js'
 import { mapState } from 'vuex'
 import icon from '@/config/icon'
@@ -76,8 +77,10 @@ import OutlineEdit from './OutlineEdit.vue'
 import { showLoading, hideLoading } from '@/utils/loading'
 import handleClipboardText from '@/utils/handleClipboardText'
 import Scrollbar from './Scrollbar.vue'
-import exampleData from 'simple-mind-map/example/exampleData'
 import FormulaSidebar from './FormulaSidebar.vue'
+
+// 注册自定义布局（从右向左生长的思维导图）
+registerLayouts()
 
 // 注册插件
 MindMap.usePlugin(MiniMap)
@@ -177,6 +180,7 @@ export default {
     bus.on('startPainter', this.handleStartPainter)
     bus.on('node_tree_render_end', this.handleHideLoading)
     bus.on('showLoading', this.handleShowLoading)
+    bus.on('lang_change', this.onLangChange)
     window.addEventListener('resize', this.handleResize)
   },
   beforeDestroy() {
@@ -190,12 +194,21 @@ export default {
     bus.off('startPainter', this.handleStartPainter)
     bus.off('node_tree_render_end', this.handleHideLoading)
     bus.off('showLoading', this.handleShowLoading)
+    bus.off('lang_change', this.onLangChange)
     window.removeEventListener('resize', this.handleResize)
     this.mindMap.destroy()
   },
   methods: {
     handleStartTextEdit() {
       this.mindMap.renderer.startTextEdit()
+    },
+
+    // زبان برنامه تغییر کرده است، متن پیش‌فرض گره جدید را به‌روز می‌کنیم
+    onLangChange() {
+      if (!this.mindMap) {
+        return
+      }
+      this.mindMap.opt.defaultInsertBelowSecondLevelNodeText = this.$t('edit.defaultNodeText')
     },
 
     handleEndTextEdit() {
@@ -291,8 +304,9 @@ export default {
           },
           children: []
         }
-        layout = exampleData.layout
-        theme = exampleData.theme
+        const defaultExampleData = getDefaultExampleData()
+        layout = defaultExampleData.layout
+        theme = defaultExampleData.theme
         view = null
       }
       this.mindMap = new MindMap({
@@ -321,6 +335,7 @@ export default {
         customHandleClipboardText: handleClipboardText,
         defaultNodeImage: require('../../../assets/img/图片加载失败.svg'),
         initRootNodePosition: ['center', 'center'],
+        defaultInsertBelowSecondLevelNodeText: this.$t('edit.defaultNodeText'),
         handleIsSplitByWrapOnPasteCreateNewNode: () => {
           return this.$confirm(this.$t('edit.splitByWrap'), this.$t('edit.tip'), {
             confirmButtonText: this.$t('edit.yes'),
@@ -332,7 +347,7 @@ export default {
           console.error(err)
           switch (code) {
             case 'export_error':
-              this.$message.error('导出失败')
+              this.$message.error(this.$t('export.exportFailed'))
               break
             default:
               break

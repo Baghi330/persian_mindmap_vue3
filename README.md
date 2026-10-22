@@ -48,9 +48,46 @@ npm i
 npm run serve
 ```
 
+### 多语言
+项目支持 `简体中文`、`English` 和 `فارسی`（فارسی）三种语言，默认语言为 فارسی。
+在编辑页右下角工具栏以及首页右上角的语言下拉框中即可切换，切换结果会保存到浏览器本地存储中。
+
+翻译文件位置：
+- `src/lang/zh_cn.js`、`src/lang/en_us.js`、`src/lang/fa_ir.js` ：界面文案
+- `src/config/zh.js`、`src/config/en.js`、`src/config/fa.js` ：字体、快捷键、形状等配置项
+- `src/config/structureZh.js`、`src/config/structureEn.js`、`src/config/structureFa.js` ：布局结构名称
+- `src/config/editorLang.js` ：富文本编辑器（toast-ui editor）的文案
+- `src/example/exampleDataFa.js` ：فارسی 默认示例数据
+
+可运行 `node scripts/checkLangKeys.js` 检查三个语言的文案键是否一致。
+
+### 从右向左的思维导图
+除了工具库自带的布局外，项目额外提供了「思维导图（从右向左）」布局，节点统一向左生长，适合 فارسی 等从右到左的语言：
+
+- `src/layouts/MindMapRtl.js` ：布局实现
+- `src/layouts/index.js` ：把自定义布局注册到工具库
+- `src/assets/img/structures/mindMapRtl.png` ：结构预览图（由 `scripts/createRtlStructureImage.py` 生成）
+
+### RTL 布局
+选择 فارسی（فارسی）语言时，页面会自动切换为从右到左（RTL）的布局：
+
+- `src/utils/direction.js` 根据当前语言计算 `dir` 属性，并同步到 `html` 标签上
+- 界面中的 `left`/`right`、`margin-left`/`margin-right` 等样式统一改为 `inset-inline-*`、`margin-inline-*` 等逻辑属性，从而同时兼容 LTR 与 RTL 两种布局
+- فارسی 语言下会使用 `Vazirmatn`（وزیرمتن）字体，相关文件位于 `src/assets/fonts/`
+
+界面的固定位置在所有语言下保持一致：
+
+- 右侧的竖向工具栏（结构、主题、样式等）以及由它打开的侧边面板，始终位于页面右边
+- 底部的横向工具栏（搜索、缩放、全屏、语言切换等）以及搜索面板，始终位于页面左边
+- 节点数量统计位于右下角
+
+### 已知问题
+- 节点备注使用的富文本编辑器（toast-ui editor）在开启/关闭备注窗口时会在控制台输出 `RangeError: Applying a mismatched transaction`，该问题来自编辑器依赖的 ProseMirror，与本项目代码无关。
+
 ## 后期计划
 - [ ] 将项目从 vue-cli 迁移至 vite
 - [ ] 将项目由 JS 改至 TS编写
+- [x] 完善فارسی（波斯语）界面的从右到左（RTL）布局支持
 
 # 特别说明
 
